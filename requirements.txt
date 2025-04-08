@@ -1,0 +1,11 @@
+torch
+transformers
+accelerate
+peft
+bitsandbytes
+swanlab
+modelscope
+loguru
+bitsandbytes
+flask
+sqlalchemy

@@ -1,0 +1,9 @@
+.idea/
+model/*
+!model/.gitkeep
+new-model/*
+!new-model/.gitkeep
+output/*
+!output/.gitkeep
+save-moedl/*
+!save-model/.gitkeep
