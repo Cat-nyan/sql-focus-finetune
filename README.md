@@ -15,7 +15,7 @@
 
 💻[HuggingFace](https://huggingface.co/XGenerationLab/XiYanSQL-QwenCoder-7B-2502) 🤗[Modelscope](https://www.modelscope.cn/models/XGenerationLab/XiYanSQL-QwenCoder-7B-2502)
 
-**模型将会在主程序运行时自动下载，无需再手动下载。**
+**模型将会在主程序运行时自动拉取，无需再手动下载。**
 
 ### 1.3、系统要求
 - **操作系统**: Linux | Windows(Linux子系统WSL2) | MacOS
@@ -23,7 +23,7 @@
 - **CUDA**: 建议使用 CUDA 12.1 及以上
 
 ### 1.4 安装依赖
-请在项目根目录直接执行以下命令安装依赖包，尽管如此仍有可能存在未安装的依赖包，请自行安装
+请在项目根目录直接执行以下命令安装依赖包，尽管如此仍有可能存在未安装的依赖包，请自行安装。
 
 `pip install -r requirements.txt`
 
@@ -130,7 +130,7 @@ parser.add_argument("--lora_dropout", type=float, default=0.05,
 **--lora_dropout**：LoRA矩阵中的dropout率。
 - 较高的`lora_dropout`值会增加正则化的效果，防止LoRA矩阵过拟合。
 - 较低的`lora_dropout`值则可能导致LoRA矩阵过拟合，尤其是在训练数据较少的情况下。
-- 对于大多数任务，0.2-0.3 是比较常见地取值，较低的`lora_dropout`值（如 0.1）适合于较小的模型，而较高的`lora_dropout`值（如 0.4-0.5）适合于较大的网络，尤其是在防止过拟合时。
+- 对于大多数任务，0.2-0.3 是比较常见地取值，较低的`lora_dropout`值（如 0.1）适合于较小的模型，而较高的`lora_dropout`值（如 0.4-0.5）适合于较大的模型，尤其是在防止过拟合时。
 
 ### 2.2 登录Swanlab
 
@@ -215,7 +215,7 @@ python model_merge.py
 
 ### 3.3 连接数据库
 
-在应用中，你可以使用使用数据库中的数据生成`db_schema`,而不必每次提交。同时借助开源项目[XGenerationLab/M-Schema](https://github.com/XGenerationLab/M-Schema)提供的工具，可将DDL Schema转化为M-Schema格式，使模型的性能和准确率进一步提高。
+在应用中，你可以使用数据库中的数据生成`db_schema`,而不必每次提交。同时借助开源项目[XGenerationLab/M-Schema](https://github.com/XGenerationLab/M-Schema)提供的工具，可将DDL Schema转化为M-Schema格式，使模型的性能和准确率进一步提高。
 
 - 在使用之前需要先配置数据库连接信息，进入`config`目录，打开`config.ini`文件，修改连接信息：
 ```ini
@@ -252,7 +252,7 @@ enable_mschema = True
 
 在使用此工具之前，需要先将`llama.cpp`下载至本地并进行编译，具体过程可参考[官方提供的教程](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md)。
 
-### 4.1转换HF模型为GGUF文件
+### 4.1 转换HF模型为GGUF文件
 
 进入`llama.cpp`目录,运行以下命令将HF模型转换为GGUF文件：
 ```bash
@@ -260,7 +260,7 @@ python convert_hf_to_gguf.py XiYanSQL-QwenCoder-7B-R1/ --outfile XiYanSQL-QwenCo
 ```
 >这里对基础模型和输出模型的路径进行了简化处理，请在使用时根据实际情况修改，建议使用绝对路径。
 
-### 4.2GGUF模型量化
+### 4.2 GGUF模型量化
 `llama.cpp`提供了多种量化方法：Q2_K、Q3_K_M、Q4_0、Q4_K_S、Q4_K_M、Q5_K_S、Q5_K_M、Q6_K、Q8_0等，其中Q4_K_M最为常用，兼顾性能和资源消耗，因此本项目使用的量化方法也是Q4_K_M，模型量化命令如下：
 ```bash
 ./build/bin/llama-quantize XiYanSQL-QwenCoder-7B-R1-fp16.gguf XiYanSQL-QwenCoder-7B-R1-Q4_K_M.gguf Q4_K_M
@@ -268,12 +268,12 @@ python convert_hf_to_gguf.py XiYanSQL-QwenCoder-7B-R1/ --outfile XiYanSQL-QwenCo
 
 >这里对基础模型和输出模型的路径进行了简化处理，请在使用时根据实际情况修改，建议使用绝对路径。
 
-### 4.3模型部署
-至此你已得到原始的`fp16 GGUF模型文件`和量化后的`Q4_K_M GGUF模型文件`,你可以在[Ollama](https://ollama.com/)、[LMStudio](https://lmstudio.ai/)等本地化部署工具上快速部署模型。
+### 4.3 模型部署
+至此你已得到原始的`fp16 GGUF模型文件`和量化后的`Q4_K_M GGUF模型文件`，你可以在[Ollama](https://ollama.com/)、[LMStudio](https://lmstudio.ai/)等本地化部署工具上快速部署模型。
 
 ## 五、感谢
 
-本项目的创建实在众多开源项目的基础之上开展的，以下是本项目所依赖的开源项目：
+本项目的创建是在众多开源项目的基础之上开展的，以下是本项目所依赖的开源项目：
 * [Spider](https://github.com/ElementAI/spider)
 * [M-Schema](https://github.com/XGenerationLab/M-Schema)
 * [deepseek-finetune-lora](https://swanhub.co/Tina_xd/deepseek-finetune-lora)
