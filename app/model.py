@@ -8,7 +8,7 @@ class Model:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Model, cls).__new__(cls)
-            cls._instance.model_name = "./model/XGenerationLab/XiYanSQL-QwenCoder-7B-2502"
+            cls._instance.model_name = "./model/XGenerationLab/XiYanSQL-QwenCoder-3B-2502"
             cls._instance.model = AutoModelForCausalLM.from_pretrained(
                 cls._instance.model_name,
                 torch_dtype=torch.bfloat16,
