@@ -190,7 +190,9 @@ python model_merge.py
 
 进入项目根目录，运行以下命令启用web服务：
 
-`python -m flask run --port=4060`
+`python -m app`
+
+也可以指定端口号和主机地址：
 - **--port**：指定端口号。
 - **--host**：指定主机地址。默认为localhost，即本机地址。
 
@@ -232,12 +234,9 @@ password=123456
 dbname=example_database
 ```
 
-**直连数据库开启方式**：编辑`app`目录中的`api.py`文件，将`enable_mschema`置为`True`即可开启。
+**直连数据库开启方式**：启动Flask应用时执行以下命令即可开启。
 
-```python
-# Whether enable M-Schema
-enable_mschema = True
-```
+`python -m app --enable-mschema`
 
 这之后请求体调整为（需重新启动web服务）：
 ```json
